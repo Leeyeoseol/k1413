@@ -10,71 +10,94 @@ Note: This is a single-file HTML infographic. All CSS and JavaScript are embedde
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>학습 도우미 AI, 어디까지 써야할까? - 인포그래픽</title>
+    <title>학습 도우미 AI, 어디까지 써야할까? - 인포그래픽 (일본 감성)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- 일본 감성에 어울리는 폰트 고려 (Noto Sans KR 유지하되, 필요시 변경 제안) -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
+        /* 커스텀 색상 변수 설정 */
+        :root {
+            --color-primary-soda: #52D3D8; /* 메인 소다색 */
+            --color-soft-blue: #A7E9EB; /* 부드러운 파랑 */
+            --color-accent-red: #D85F49; /* 새로운 빨간색 악센트 */
+            --color-accent-custard: #FFE5B4; /* 새로운 커스터드색 악센트 */
+            --color-dark-charcoal: #3F4E4F; /* 어두운 텍스트 색상 */
+            --color-background-light: #F8FBFD; /* 아주 밝은 배경색 */
+            --color-card-white: #FFFFFF; /* 카드 배경 순수 흰색 */
+        }
+
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background-color: #FEFBF6; /* Main Background (Creamy White) */
-            color: #3D3C42; /* Dark Text */
+            background-color: var(--color-background-light); /* 메인 배경 (아주 밝은 파란빛) */
+            color: var(--color-dark-charcoal); /* 어두운 텍스트 */
+            line-height: 1.6;
         }
         .chart-container {
             position: relative; /* Chart.js 툴팁 등을 위해 필요 */
             margin: auto;
             padding: 1rem;
-            background-color: #52D3D8; /* Light Background for cards */
-            border-radius: 0.5rem; /* rounded-lg */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-lg */
+            background-color: var(--color-card-white); /* 카드 배경 순수 흰색 */
+            border-radius: 0.75rem; /* 더 둥근 모서리 rounded-xl */
+            box-shadow: 0 6px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04); /* 부드러운 그림자 */
         }
         .report-title {
-            font-size: 28px; /* 보고서 제목 크기 예시 */
+            font-size: 32px; /* 보고서 제목 크기 */
             font-weight: 900; /* 매우 굵게 */
-            color: #D83F31; /* Primary Red */
+            color: var(--color-dark-charcoal); /* 어두운 차콜색으로 변경하여 대비 높임 */
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.1); /* 그림자 유지 */
         }
         .section-title {
-            font-size: 20px; /* 수준1 제목 크기 예시 (인포그래픽에 맞게 조정) */
+            font-size: 24px; /* 수준1 제목 크기 */
             font-weight: 700; /* 아주 굵게 */
-            color: #D83F31; /* Primary Red */
-            border-bottom: 2px solid #52D3D8; /* Secondary Soda */
-            padding-bottom: 0.5rem;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
+            color: var(--color-primary-soda); /* 메인 소다색 */
+            border-bottom: 3px solid var(--color-soft-blue); /* 부드러운 파랑 선 */
+            padding-bottom: 0.75rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
         }
         .subsection-title {
-            font-size: 16px; /* 수준2 제목 크기 예시 */
+            font-size: 18px; /* 수준2 제목 크기 */
             font-weight: 700; /* 굵게 */
-            color: #3D3C42;
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
+            color: var(--color-dark-charcoal);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
         }
         .card {
-            background-color: #FFFFFF;
-            border-radius: 0.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            margin-bottom: 1rem;
-            overflow: hidden; /* For rounded corners on full-width image */
+            background-color: var(--color-card-white);
+            border-radius: 0.75rem; /* 더 둥근 모서리 */
+            box-shadow: 0 6px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04); /* 부드러운 그림자 */
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1), 0 6px 12px -3px rgba(0, 0, 0, 0.06);
         }
         .card-inner-padding {
-            padding: 1.5rem;
+            padding: 2rem; /* 패딩 증가 */
         }
         .highlight {
-            color: #D83F31; /* Primary Red */
+            color: var(--color-primary-soda); /* 메인 소다색 강조 */
             font-weight: 700;
         }
         .quote {
             font-style: italic;
             color: #555;
-            border-left: 3px solid #52D3D8; /* Secondary Soda */
-            padding-left: 1rem;
-            margin: 0.5rem 0;
+            border-left: 4px solid var(--color-soft-blue); /* 부드러운 파랑 선 */
+            padding-left: 1.25rem;
+            margin: 1rem 0;
+            background-color: rgba(167, 233, 235, 0.1); /* 부드러운 배경색 */
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-radius: 0.25rem;
         }
         /* 스크롤 애니메이션을 위한 클래스 */
         .fade-in-section {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transform: translateY(25px); /* 약간 더 많이 이동 */
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* 더 부드럽고 느리게 */
         }
         .fade-in-section.is-visible {
             opacity: 1;
@@ -99,12 +122,13 @@ Note: This is a single-file HTML infographic. All CSS and JavaScript are embedde
             theme: {
                 extend: {
                     colors: {
-                        primaryRed: '#D83F31',
-                        secondarySoda: '#52D3D8',
-                        accentYellow: '#F8DE22',
-                        supportingCream: '#FEFBF6',
-                        darkText: '#3D3C42',
-                        lightBackground: '#FFFFFF',
+                        primarySoda: 'var(--color-primary-soda)',
+                        softBlue: 'var(--color-soft-blue)',
+                        accentRed: 'var(--color-accent-red)',
+                        accentCustard: 'var(--color-accent-custard)',
+                        darkCharcoal: 'var(--color-dark-charcoal)',
+                        backgroundLight: 'var(--color-background-light)',
+                        cardWhite: 'var(--color-card-white)',
                     }
                 }
             }
@@ -113,29 +137,29 @@ Note: This is a single-file HTML infographic. All CSS and JavaScript are embedde
 </head>
 <body class="antialiased">
     <!-- Hero Section -->
-    <section id="hero" class="h-screen w-full flex flex-col justify-center items-center text-white bg-gradient-to-br from-secondarySoda to-primaryRed relative p-4">
-        <div class="text-center">
-            <h1 class="text-4xl md:text-5xl font-black mb-4 text-white" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">학습 도우미 AI, 어디까지 써야할까?</h1>
-            <p class="text-xl md:text-2xl font-semibold mb-8 text-white" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.3);">학생들의 생성형 AI 활용 실태와 학습 태도 분석</p>
-            <div class="text-sm opacity-90 text-white">
+    <section id="hero" class="h-screen w-full flex flex-col justify-center items-center bg-gradient-to-b from-primarySoda to-softBlue relative p-6">
+        <div class="text-center max-w-2xl">
+            <h1 class="report-title mb-5">학습 도우미 AI, 어디까지 써야할까?</h1>
+            <p class="text-xl md:text-2xl font-medium mb-10 text-darkCharcoal" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.1);">학생들의 생성형 AI 활용 실태와 학습 태도 분석</p>
+            <div class="text-sm opacity-90 text-darkCharcoal">
                 <p>1학년 4반 4조: 신수아, 이여설, 김진수, 김동현, 조유진</p>
                 <p>작성일: 2025년 5월 29일</p>
             </div>
         </div>
-        <a href="#report-body" class="absolute bottom-10 animate-bounce-slow">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <a href="#report-body" class="absolute bottom-12 animate-bounce-slow">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-darkCharcoal" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
         </a>
     </section>
 
     <!-- Main Report Body -->
-    <div id="report-body" class="container mx-auto p-4 md:p-8 max-w-5xl">
+    <div id="report-body" class="container mx-auto p-4 md:p-10 max-w-5xl">
         <main>
             <!-- 1. 조사 동기와 목적 -->
             <section id="motivation-purpose" class="mb-12 fade-in-section">
                 <h2 class="section-title">1. 조사 동기와 목적</h2>
-                <div class="grid md:grid-cols-2 gap-6">
+                <div class="grid md:grid-cols-2 gap-8">
                     <div class="card card-inner-padding">
                         <h3 class="subsection-title">가. 조사 동기</h3>
                         <p>최근 AI 기술이 일상에 깊숙이 적용되면서, 특히 학생들이 학습 및 과제 수행 과정에서 AI의 도움을 받는 경우가 증가했습니다. 그러나 AI에 대한 의존도가 높아짐에 따라, 학생들의 자기 주도적 사고 및 학습 능력 저하에 대한 우려가 제기되었습니다. 이에 본 조사는 "어느 정도까지 AI의 도움을 받는 것이 적절하며, 어느 선에서 스스로 학습해야 하는가?"라는 문제의식을 바탕으로 시작했습니다.</p>
@@ -150,27 +174,27 @@ Note: This is a single-file HTML infographic. All CSS and JavaScript are embedde
             <!-- 2. 조사 계획 -->
             <section id="research-plan" class="mb-12 fade-in-section">
                 <h2 class="section-title">2. 조사 계획</h2>
-                <div class="grid md:grid-cols-3 gap-6">
+                <div class="grid md:grid-cols-3 gap-8">
                     <div class="card card-inner-padding text-center">
-                        <div class="mb-3">
-                            <span class="text-5xl font-black text-primaryRed opacity-80">1</span>
+                        <div class="mb-4">
+                            <span class="text-6xl font-black text-primarySoda opacity-80">1</span>
                         </div>
-                        <h3 class="font-bold text-lg text-darkText mb-2">조사 기간</h3>
-                        <p class="text-primaryRed font-semibold">2025.05.12 ~ 2025.05.23</p>
+                        <h3 class="font-bold text-xl text-darkCharcoal mb-3">조사 기간</h3>
+                        <p class="text-primarySoda font-semibold text-lg">2025.05.12 ~ 2025.05.23</p>
                     </div>
                     <div class="card card-inner-padding text-center">
-                        <div class="mb-3">
-                            <span class="text-5xl font-black text-primaryRed opacity-80">2</span>
+                        <div class="mb-4">
+                            <span class="text-6xl font-black text-primarySoda opacity-80">2</span>
                         </div>
-                        <h3 class="font-bold text-lg text-darkText mb-2">조사 대상</h3>
-                        <p class="text-darkText text-sm">미림마이스터고 뉴미디어소프트웨어과<br>1학년 4반 18명, 조정모, 정재희</p>
+                        <h3 class="font-bold text-xl text-darkCharcoal mb-3">조사 대상</h3>
+                        <p class="text-darkCharcoal text-base">미림마이스터고 뉴미디어소프트웨어과<br>1학년 4반 18명, 조정모, 정재희</p>
                     </div>
                     <div class="card card-inner-padding text-center">
-                        <div class="mb-3">
-                            <span class="text-5xl font-black text-primaryRed opacity-80">3</span>
+                        <div class="mb-4">
+                            <span class="text-6xl font-black text-primarySoda opacity-80">3</span>
                         </div>
-                        <h3 class="font-bold text-lg text-darkText mb-2">조사 방법</h3>
-                        <p class="text-darkText font-semibold">설문조사, 인터뷰</p>
+                        <h3 class="font-bold text-xl text-darkCharcoal mb-3">조사 방법</h3>
+                        <p class="text-darkCharcoal font-semibold text-lg">설문조사, 인터뷰</p>
                     </div>
                 </div>
             </section>
@@ -180,10 +204,10 @@ Note: This is a single-file HTML infographic. All CSS and JavaScript are embedde
                 <h2 class="section-title">3. 조사 결과</h2>
 
                 <!-- 가. 설문조사 분석 결과 -->
-                <div class="mb-8">
-                    <h3 class="subsection-title text-lg font-semibold mb-4 text-center">가. 설문조사 분석 결과</h3>
-                    <p class="text-center mb-6 text-darkText">설문에 참여한 학생들은 AI를 학습에 유익한 도구로 인식하고 있으나, 무분별한 사용보다는 신중하고 자기 주도적인 활용이 중요하다고 생각하는 경향을 보였습니다. AI를 학습에 적극적으로 의존하기보다는, 필요한 순간에 힌트를 얻는 수준으로 제한해 사용하는 것이 적절하다는 의견이 가장 많았습니다.</p>
-                    <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="mb-10">
+                    <h3 class="subsection-title text-xl font-semibold mb-6 text-center">가. 설문조사 분석 결과</h3>
+                    <p class="text-center mb-8 text-darkCharcoal text-base">설문에 참여한 학생들은 AI를 학습에 유익한 도구로 인식하고 있으나, 무분별한 사용보다는 신중하고 자기 주도적인 활용이 중요하다고 생각하는 경향을 보였습니다. AI를 학습에 적극적으로 의존하기보다는, 필요한 순간에 힌트를 얻는 수준으로 제한해 사용하는 것이 적절하다는 의견이 가장 많았습니다.</p>
+                    <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
                         <div class="chart-container w-full max-w-md mx-auto h-80 md:h-96">
                             <canvas id="surveyChart1"></canvas>
                         </div>
@@ -194,33 +218,33 @@ Note: This is a single-file HTML infographic. All CSS and JavaScript are embedde
                             <canvas id="surveyChart3"></canvas>
                         </div>
                     </div>
-                     <p class="text-center mt-6 text-sm text-gray-500">대부분의 학생들은 AI가 제시한 답을 단순히 받아들이기보다는 내용을 이해하고 자기 것으로 만들려는 태도를 가지고 있으며, 이는 AI 활용이 학습 효과를 높이는 데 긍정적으로 작용할 수 있음을 보여줍니다. 생성형 AI 사용이 사고력이나 지식 습득에 방해가 된다고 느끼는 학생도 있고, 그렇지 않다고 생각하는 학생도 있어 인식이 다양하게 나타났습니다.</p>
+                    <p class="text-center mt-8 text-sm text-gray-600">대부분의 학생들은 AI가 제시한 답을 단순히 받아들이기보다는 내용을 이해하고 자기 것으로 만들려는 태도를 가지고 있으며, 이는 AI 활용이 학습 효과를 높이는 데 긍정적으로 작용할 수 있음을 보여줍니다. 생성형 AI 사용이 사고력이나 지식 습득에 방해가 된다고 느끼는 학생도 있고, 그렇지 않다고 생각하는 학생도 있어 인식이 다양하게 나타났습니다.</p>
                 </div>
 
                 <!-- 나. 개별 인터뷰 분석 결과 -->
                 <div class="fade-in-section">
-                    <h3 class="subsection-title text-lg font-semibold mb-6 text-center">나. 개별 인터뷰 분석 결과</h3>
-                    <div class="grid md:grid-cols-2 gap-6">
+                    <h3 class="subsection-title text-xl font-semibold mb-8 text-center">나. 개별 인터뷰 분석 결과</h3>
+                    <div class="grid md:grid-cols-2 gap-8">
                         <div class="card p-0">
-                            <img src="src/스크린샷 2025-06-21 143008.png" onerror="this.onerror=null;this.src='https://placehold.co/600x400/D83F31/FFFFFF?text=조정모+학생+사진';" alt="조정모 학생 인터뷰 사진" class="w-full h-56 object-cover border-b-4 border-secondarySoda">
+                            <img src="https://placehold.co/600x400/52D3D8/FFFFFF?text=조정모+학생+사진" onerror="this.onerror=null;this.src='https://placehold.co/600x400/52D3D8/FFFFFF?text=조정모+학생+사진';" alt="조정모 학생 인터뷰 사진" class="w-full h-64 object-cover rounded-t-lg border-b-4 border-softBlue">
                             <div class="p-6">
-                                <h4 class="text-xl font-semibold text-primaryRed mb-2">조정모 학생</h4>
-                                <p class="mb-3 text-sm text-darkText">AI를 다양한 관점을 제공하는 도구로 인식하나, 맹신하지 않고 보조 수단으로 활용하려 합니다. AI 사용 기준은 아직 모호한 편입니다.</p>
+                                <h4 class="text-2xl font-bold text-primarySoda mb-3">조정모 학생</h4>
+                                <p class="mb-4 text-base text-darkCharcoal">AI를 다양한 관점을 제공하는 도구로 인식하나, 맹신하지 않고 보조 수단으로 활용하려 합니다. AI 사용 기준은 아직 모호한 편입니다.</p>
                                 <p class="quote">"AI는 여러 사람의 생각 관점이 들어가 있어서 제가 생각한 관점 제가 보지 못했던 생각들이나 대답들을 할 수 있어서 좋았고요."</p>
                             </div>
                             <div class="p-6 pt-0">
-                                <img src="src/스크린샷 2025-06-10 150234.png" onerror="this.onerror=null;this.src='https://placehold.co/600x300/FEFBF6/3D3C42?text=조정모+학생+워드클라우드';" alt="조정모 학생 인터뷰 핵심단어 워드클라우드" class="w-full object-cover rounded-lg border-2 border-gray-200">
+                                <img src="https://placehold.co/600x300/F8FBFD/3F4E4F?text=조정모+학생+워드클라우드" onerror="this.onerror=null;this.src='https://placehold.co/600x300/F8FBFD/3F4E4F?text=조정모+학생+워드클라우드';" alt="조정모 학생 인터뷰 핵심단어 워드클라우드" class="w-full object-cover rounded-lg border-2 border-softBlue">
                             </div>
                         </div>
                         <div class="card p-0">
-                             <img src="src/스크린샷 2025-06-21 142956.png" onerror="this.onerror=null;this.src='https://placehold.co/600x400/52D3D8/FFFFFF?text=정재희+학생+사진';" alt="정재희 학생 인터뷰 사진" class="w-full h-56 object-cover border-b-4 border-secondarySoda">
+                             <img src="https://placehold.co/600x400/A7E9EB/3F4E4F?text=정재희+학생+사진" onerror="this.onerror=null;this.src='https://placehold.co/600x400/A7E9EB/3F4E4F?text=정재희+학생+사진';" alt="정재희 학생 인터뷰 사진" class="w-full h-64 object-cover rounded-t-lg border-b-4 border-softBlue">
                             <div class="p-6">
-                                <h4 class="text-xl font-semibold text-primaryRed mb-2">정재희 학생</h4>
-                                <p class="mb-3 text-sm text-darkText">코딩 학습 시 AI가 제공한 코드를 스스로 분석하며 학습 효과를 높이려 합니다. 과제 활용 시 윤리적 고민도 있으며, 필요시 즉각 AI를 사용하는 경향이 있습니다.</p>
+                                <h4 class="text-2xl font-bold text-primarySoda mb-3">정재희 학생</h4>
+                                <p class="mb-4 text-base text-darkCharcoal">코딩 학습 시 AI가 제공한 코드를 스스로 분석하며 학습 효과를 높이려 합니다. 과제 활용 시 윤리적 고민도 있으며, 필요시 즉각 AI를 사용하는 경향이 있습니다.</p>
                                 <p class="quote">"GPT가 알려준 코드를 혼자 해석해서 제가 안 보고 그 코드 문제를 봤을 때 그 코드를 쓸 수 있도록 공부하는 편입니다."</p>
                             </div>
                             <div class="p-6 pt-0">
-                               <img src="src/스크린샷 2025-06-10 143847.png" onerror="this.onerror=null;this.src='https://placehold.co/600x300/FEFBF6/3D3C42?text=정재희+학생+워드클라우드';" alt="정재희 학생 인터뷰 핵심단어 워드클라우드" class="w-full object-cover rounded-lg border-2 border-gray-200">
+                               <img src="https://placehold.co/600x300/F8FBFD/3F4E4F?text=정재희+학생+워드클라우드" onerror="this.onerror=null;this.src='https://placehold.co/600x300/F8FBFD/3F4E4F?text=정재희+학생+워드클라우드';" alt="정재희 학생 인터뷰 핵심단어 워드클라우드" class="w-full object-cover rounded-lg border-2 border-softBlue">
                             </div>
                         </div>
                     </div>
@@ -230,35 +254,35 @@ Note: This is a single-file HTML infographic. All CSS and JavaScript are embedde
             <!-- 4. 결론 -->
             <section id="conclusion" class="mb-12">
                 <h2 class="section-title">4. 결론</h2>
-                <div class="card card-inner-padding mb-6 fade-in-section">
+                <div class="card card-inner-padding mb-8 fade-in-section">
                     <h3 class="subsection-title">가. 조사 결과 종합 및 주요 발견점</h3>
-                    <div class="grid md:grid-cols-2 gap-4 text-darkText">
+                    <div class="grid md:grid-cols-2 gap-6 text-darkCharcoal text-base">
                         <p><strong class="highlight">AI 활용 정도 인식:</strong> 학생들은 AI를 과도하게 의존하기보다 '힌트'(52.6%)나 '참고용'(26.3%)으로 적절히 활용하는 것을 선호.</p>
                         <p><strong class="highlight">학습 노력:</strong> 응답자의 89.5%가 AI 답변을 이해한다고 인식하며, 그 내용을 자신의 지식으로 소화하려는 노력이 관찰됨.</p>
-                        <p><strong class="text-yellow-600 font-semibold">부정적 영향 우려:</strong> AI 사용이 사고력/지식 축적에 방해된다는 우려(36.8%)도 존재하여, AI 사용 영향에 대한 인식이 다양함.</p>
-                        <p><strong class="text-gray-500 font-semibold">AI 사용 기준의 모호성:</strong> AI 사용 시점에 대한 명확한 기준이 없거나, 개인별로 차이가 있는 것으로 나타남.</p>
+                        <p><strong class="highlight" style="color: var(--color-accent-red);">부정적 영향 우려:</strong> AI 사용이 사고력/지식 축적에 방해된다는 우려(36.8%)도 존재하여, AI 사용 영향에 대한 인식이 다양함.</p>
+                        <p><strong class="highlight" style="color: var(--color-accent-custard);">AI 사용 기준의 모호성:</strong> AI 사용 시점에 대한 명확한 기준이 없거나, 개인별로 차이가 있는 것으로 나타남.</p>
                     </div>
                 </div>
                 
-                 <!-- Visualization: HTML/CSS Diagram for Suggestions - Corresponding Report Section: 4.다. 제언 -->
+                <!-- Visualization: HTML/CSS Diagram for Suggestions - Corresponding Report Section: 4.다. 제언 -->
                 <div class="card card-inner-padding fade-in-section">
                     <h3 class="subsection-title">다. 효과적인 AI 활용을 위한 제언 (우리의 다짐)</h3>
-                    <div class="space-y-4">
-                        <div class="p-4 rounded-lg bg-red-50 border border-red-200">
-                            <h4 class="font-semibold text-primaryRed">1. AI는 '학습 파트너'로 활용하기</h4>
-                            <p class="text-sm text-darkText">AI가 주는 답을 무비판적으로 받아들이지 말고, 스스로 이해하고 적용하는 습관을 기릅시다.</p>
+                    <div class="space-y-5">
+                        <div class="p-5 rounded-lg bg-softBlue bg-opacity-20 border border-softBlue">
+                            <h4 class="font-bold text-lg text-primarySoda mb-1">1. AI는 '학습 파트너'로 활용하기</h4>
+                            <p class="text-base text-darkCharcoal">AI가 주는 답을 무비판적으로 받아들이지 말고, 스스로 이해하고 적용하는 습관을 기릅시다.</p>
                         </div>
-                        <div class="p-4 rounded-lg bg-cyan-50 border border-cyan-200">
-                             <h4 class="font-semibold text-cyan-700">2. AI 활용 기준을 스스로 정립하기</h4>
-                            <p class="text-sm text-darkText">'어디까지는 스스로, 어디서부터는 AI 도움'이라는 자기만의 기준을 마련해 자기주도성을 지킵시다.</p>
+                        <div class="p-5 rounded-lg bg-softBlue bg-opacity-20 border border-softBlue">
+                             <h4 class="font-bold text-lg text-primarySoda mb-1">2. AI 활용 기준을 스스로 정립하기</h4>
+                            <p class="text-base text-darkCharcoal">'어디까지는 스스로, 어디서부터는 AI 도움'이라는 자기만의 기준을 마련해 자기주도성을 지킵시다.</p>
                         </div>
-                        <div class="p-4 rounded-lg bg-red-50 border border-red-200">
-                             <h4 class="font-semibold text-primaryRed">3. AI 답변에 대한 비판적 검토 및 내재화</h4>
-                            <p class="text-sm text-darkText">AI의 한계를 인식하고, 오류나 반복적인 답변은 반드시 검증하는 태도를 유지합시다.</p>
+                        <div class="p-5 rounded-lg bg-softBlue bg-opacity-20 border border-softBlue">
+                             <h4 class="font-bold text-lg text-primarySoda mb-1">3. AI 답변에 대한 비판적 검토 및 내재화</h4>
+                            <p class="text-base text-darkCharcoal">AI의 한계를 인식하고, 오류나 반복적인 답변은 반드시 검증하는 태도를 유지합시다.</p>
                         </div>
-                         <div class="p-4 rounded-lg bg-cyan-50 border border-cyan-200">
-                            <h4 class="font-semibold text-cyan-700">4. 윤리적인 AI 활용 인식 제고</h4>
-                            <p class="text-sm text-darkText">단순 복붙은 지양하고, AI의 도움을 받았음을 명확히 밝히며 자신만의 결과물을 만듭시다.</p>
+                         <div class="p-5 rounded-lg bg-softBlue bg-opacity-20 border border-softBlue">
+                            <h4 class="font-bold text-lg text-primarySoda mb-1">4. 윤리적인 AI 활용 인식 제고</h4>
+                            <p class="text-base text-darkCharcoal">단순 복붙은 지양하고, AI의 도움을 받았음을 명확히 밝히며 자신만의 결과물을 만듭시다.</p>
                         </div>
                     </div>
                 </div>
@@ -268,7 +292,7 @@ Note: This is a single-file HTML infographic. All CSS and JavaScript are embedde
             <section id="references" class="mb-12 fade-in-section">
                 <h2 class="section-title">5. 참고자료</h2>
                 <div class="card card-inner-padding">
-                    <ul class="list-disc list-inside space-y-1 text-sm text-darkText">
+                    <ul class="list-disc list-inside space-y-2 text-base text-darkCharcoal">
                         <li>미림마이스터고등학교 뉴미디어소프트웨어과 1학년 4반 조정모, 정재희 학생 심층 인터뷰 녹취록 (2025.5.)</li>
                         <li>미림마이스터고 소프트웨어과 1학년 4반 학생 18명 대상 생성형 AI 활용 실태 설문조사 (2025)</li>
                         <li>한국청소년정책연구원. (2024). 청소년의 생성형 AI 이용실태 및 리터러시 증진 방안 연구.</li>
@@ -278,8 +302,8 @@ Note: This is a single-file HTML infographic. All CSS and JavaScript are embedde
         </main>
 
         <!-- 6. 푸터 -->
-        <footer class="text-center mt-12 py-6 border-t border-gray-200">
-            <p class="text-sm text-gray-500">&copy; 2025 1학년 4반 4조. 학생 공동 조사 보고서 인포그래픽.</p>
+        <footer class="text-center mt-12 py-8 border-t border-softBlue">
+            <p class="text-sm text-gray-600">&copy; 2025 1학년 4반 4조. 학생 공동 조사 보고서 인포그래픽.</p>
         </footer>
 
     </div>
@@ -287,10 +311,13 @@ Note: This is a single-file HTML infographic. All CSS and JavaScript are embedde
     <script>
         // Chart.js and Animation 스크립트
         document.addEventListener('DOMContentLoaded', function () {
-            const primaryRed = '#D83F31';
-            const secondarySoda = '#52D3D8';
-            const accentYellow = '#F8DE22';
-            const darkText = '#3D3C42';
+            const primarySoda = getComputedStyle(document.documentElement).getPropertyValue('--color-primary-soda').trim();
+            const softBlue = getComputedStyle(document.documentElement).getPropertyValue('--color-soft-blue').trim();
+            const accentRed = getComputedStyle(document.documentElement).getPropertyValue('--color-accent-red').trim();
+            const accentCustard = getComputedStyle(document.documentElement).getPropertyValue('--color-accent-custard').trim();
+            const darkCharcoal = getComputedStyle(document.documentElement).getPropertyValue('--color-dark-charcoal').trim();
+            const backgroundLight = getComputedStyle(document.documentElement).getPropertyValue('--color-background-light').trim();
+            const cardWhite = getComputedStyle(document.documentElement).getPropertyValue('--color-card-white').trim();
 
             const tooltipCallback = {
                 label: function(context) {
@@ -300,12 +327,12 @@ Note: This is a single-file HTML infographic. All CSS and JavaScript are embedde
                     
                     if (context.chart.config.type === 'doughnut' || context.chart.config.type === 'pie') {
                         const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
-                         const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                        const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
                         const rawData = context.chart.data.datasets[0].rawData;
                         const rawValue = rawData ? rawData[context.dataIndex] : 'N/A';
-                         label = context.label || '';
-                         if (label) { label += ': '; }
-                         label += `${value}% (${rawValue}명)`;
+                        label = context.label || '';
+                        if (label) { label += ': '; }
+                        label += `${value}% (${rawValue}명)`;
                     } else { // Bar chart
                         const rawData = context.dataset.rawData;
                         const rawValue = rawData ? rawData[context.dataIndex] : 'N/A';
@@ -321,12 +348,12 @@ Note: This is a single-file HTML infographic. All CSS and JavaScript are embedde
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'top', labels: { font: { family: "'Noto Sans KR', sans-serif", size: 12 }, color: darkText } },
+                    legend: { position: 'top', labels: { font: { family: "'Noto Sans KR', sans-serif", size: 13 }, color: darkCharcoal } },
                     tooltip: { backgroundColor: 'rgba(0,0,0,0.7)', titleFont: { family: "'Noto Sans KR', sans-serif", size: 14 }, bodyFont: { family: "'Noto Sans KR', sans-serif", size: 12 }, callbacks: tooltipCallback }
                 },
             };
             
-            // 설문 1: Bar Chart
+            // 설문 1: Bar Chart (AI 도움 정도)
             const survey1Ctx = document.getElementById('surveyChart1').getContext('2d');
             new Chart(survey1Ctx, {
                 type: 'bar',
@@ -336,15 +363,28 @@ Note: This is a single-file HTML infographic. All CSS and JavaScript are embedde
                         label: 'AI 도움 정도 (%)',
                         data: [10.5, 26.3, 52.6, 5.3, 5.3],
                         rawData: [2, 5, 10, 1, 1],
-                        backgroundColor: ['rgba(216, 63, 49, 0.6)', 'rgba(82, 211, 216, 0.6)', 'rgba(248, 222, 34, 0.6)', 'rgba(170, 170, 170, 0.6)', 'rgba(61, 60, 66, 0.6)'],
-                        borderColor: [primaryRed, secondarySoda, accentYellow, '#AAA', darkText],
-                        borderWidth: 1
+                        backgroundColor: [
+                            accentCustard, /* 최소한으로만 */
+                            softBlue,     /* 기본 개념만 참고 */
+                            primarySoda,  /* 중간중간 힌트 (가장 높음) */
+                            accentRed,    /* 대부분 AI 도움 */
+                            darkCharcoal  /* 모든 문제 AI 활용 */
+                        ],
+                        borderColor: [
+                            accentCustard,
+                            softBlue,
+                            primarySoda,
+                            accentRed,
+                            darkCharcoal
+                        ],
+                        borderWidth: 1,
+                        borderRadius: 5 // 막대 그래프 모서리 둥글게
                     }]
                 },
-                options: { ...commonChartOptions, plugins: { ...commonChartOptions.plugins, title: { display: true, text: 'Q1: AI 도움, 어느 정도가 효과적일까?', font: { family: "'Noto Sans KR', sans-serif", size: 14, weight: 'bold' }, color: darkText, padding: { top: 10, bottom:15 } } }, scales: { y: { beginAtZero: true, ticks: { font: { family: "'Noto Sans KR', sans-serif", size: 11 }, color: darkText, callback: function(value) { return value + '%'; } }, grid: { color: '#e0e0e0' } }, x: { ticks: { font: { family: "'Noto Sans KR', sans-serif", size: 11 }, color: darkText }, grid: { display: false } } } }
+                options: { ...commonChartOptions, plugins: { ...commonChartOptions.plugins, title: { display: true, text: 'Q1: AI 도움, 어느 정도가 효과적일까?', font: { family: "'Noto Sans KR', sans-serif", size: 16, weight: 'bold' }, color: darkCharcoal, padding: { top: 10, bottom:15 } } }, scales: { y: { beginAtZero: true, ticks: { font: { family: "'Noto Sans KR', sans-serif", size: 12 }, color: darkCharcoal, callback: function(value) { return value + '%'; } }, grid: { color: '#e0e0e0', drawBorder: false } }, x: { ticks: { font: { family: "'Noto Sans KR', sans-serif", size: 12 }, color: darkCharcoal }, grid: { display: false } } } }
             });
 
-            // 설문 2: Doughnut Chart
+            // 설문 2: Doughnut Chart (AI 답변 이해도)
             const survey2Ctx = document.getElementById('surveyChart2').getContext('2d');
             new Chart(survey2Ctx, {
                 type: 'doughnut',
@@ -354,15 +394,19 @@ Note: This is a single-file HTML infographic. All CSS and JavaScript are embedde
                         label: 'AI 답변 이해도',
                         data: [10.5, 63.2, 26.3],
                         rawData: [2, 12, 5],
-                        backgroundColor: ['rgba(170, 170, 170, 0.8)', 'rgba(82, 211, 216, 0.8)', 'rgba(216, 63, 49, 0.8)'],
-                        borderColor: ['#FFFFFF'],
-                        borderWidth: 2
+                        backgroundColor: [
+                            softBlue,     /* 보통 */
+                            primarySoda,  /* 그렇다 (가장 높음) */
+                            accentCustard /* 매우 그렇다 (강조) */
+                        ],
+                        borderColor: [cardWhite], /* 내부 흰색 테두리 */
+                        borderWidth: 3
                     }]
                 },
-                options: { ...commonChartOptions, plugins: { ...commonChartOptions.plugins, title: { display: true, text: 'Q2: AI 답변, 완전히 이해하고 넘어가나요?', font: { family: "'Noto Sans KR', sans-serif", size: 14, weight: 'bold' }, color: darkText, padding: { top: 10, bottom:15 } } } }
+                options: { ...commonChartOptions, plugins: { ...commonChartOptions.plugins, title: { display: true, text: 'Q2: AI 답변, 완전히 이해하고 넘어가나요?', font: { family: "'Noto Sans KR', sans-serif", size: 16, weight: 'bold' }, color: darkCharcoal, padding: { top: 10, bottom:15 } } } }
             });
 
-            // 설문 3: Bar Chart
+            // 설문 3: Bar Chart (AI 사용의 사고력/지식 방해 여부)
             const survey3Ctx = document.getElementById('surveyChart3').getContext('2d');
             new Chart(survey3Ctx, {
                 type: 'bar',
@@ -372,12 +416,25 @@ Note: This is a single-file HTML infographic. All CSS and JavaScript are embedde
                         label: 'AI 사용의 사고력/지식 방해 여부 (%)',
                         data: [5.3, 26.3, 31.6, 26.3, 10.5],
                         rawData: [1, 5, 6, 5, 2],
-                        backgroundColor: ['rgba(82, 211, 216, 0.7)', 'rgba(82, 211, 216, 0.5)', 'rgba(170, 170, 170, 0.7)', 'rgba(216, 63, 49, 0.5)', 'rgba(216, 63, 49, 0.7)'],
-                        borderColor: ['#52D3D8', '#52D3D8', '#AAA', '#D83F31', '#D83F31'],
-                        borderWidth: 1
+                        backgroundColor: [
+                            softBlue,    /* 전혀 그렇지 않다 */
+                            softBlue,    /* 그렇지 않다 */
+                            '#A0A0A0',   /* 보통 (중간값) */
+                            accentRed,   /* 그렇다 */
+                            accentRed    /* 매우 그렇다 */
+                        ],
+                        borderColor: [
+                            softBlue,
+                            softBlue,
+                            '#A0A0A0',
+                            accentRed,
+                            accentRed
+                        ],
+                        borderWidth: 1,
+                        borderRadius: 5
                     }]
                 },
-                options: { ...commonChartOptions, plugins: { ...commonChartOptions.plugins, title: { display: true, text: 'Q3: AI 사용, 사고력/지식 쌓는데 방해되나요?', font: { family: "'Noto Sans KR', sans-serif", size: 14, weight: 'bold' }, color: darkText, padding: { top: 10, bottom:15 } } }, scales: { y: { beginAtZero: true, ticks: { font: { family: "'Noto Sans KR', sans-serif", size: 11 }, color: darkText, callback: function(value) { return value + '%'; } }, grid: { color: '#e0e0e0' } }, x: { ticks: { font: { family: "'Noto Sans KR', sans-serif", size: 11 }, color: darkText }, grid: { display: false } } } }
+                options: { ...commonChartOptions, plugins: { ...commonChartOptions.plugins, title: { display: true, text: 'Q3: AI 사용, 사고력/지식 쌓는데 방해되나요?', font: { family: "'Noto Sans KR', sans-serif", size: 16, weight: 'bold' }, color: darkCharcoal, padding: { top: 10, bottom:15 } } }, scales: { y: { beginAtZero: true, ticks: { font: { family: "'Noto Sans KR', sans-serif", size: 12 }, color: darkCharcoal, callback: function(value) { return value + '%'; } }, grid: { color: '#e0e0e0', drawBorder: false } }, x: { ticks: { font: { family: "'Noto Sans KR', sans-serif", size: 12 }, color: darkCharcoal }, grid: { display: false } } } }
             });
 
             // 스크롤 애니메이션
@@ -386,10 +443,13 @@ Note: This is a single-file HTML infographic. All CSS and JavaScript are embedde
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
+                    } else {
+                        // 선택적으로 섹션이 뷰포트 밖으로 나가면 다시 숨김 (재진입 시 애니메이션 재생)
+                        // entry.target.classList.remove('is-visible');
                     }
                 });
             }, {
-                threshold: 0.1
+                threshold: 0.15 // 뷰포트에 15% 이상 보일 때 애니메이션
             });
             sections.forEach(section => {
                 observer.observe(section);
